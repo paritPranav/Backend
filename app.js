@@ -40,9 +40,11 @@ app.get('/',async(req,res)=>{
     res.send("Home")
 })
 
-// app.get('/sitemap',(req,res)=>{
-// 	sitemapupdate();
-// })
+app.get('/sitemap',(req,res)=>{
+	
+
+res.sendFile(__dirname+"/sitemap.xml")
+})
 app.listen(3000, () => {
 	
 });
