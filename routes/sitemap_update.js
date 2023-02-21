@@ -33,13 +33,11 @@ const filterUniqueURLs = () => {
     fs.readFile('sitemap.xml', (err, data) => {
         if (data) {
             const existingSitemapList = JSON.parse(convert.xml2json(data, options));
-            console.log(existingSitemapList);
             let existingSitemapURLStringList = [];
             if (existingSitemapList.urlset && existingSitemapList.urlset.url && existingSitemapList.urlset.url.length) {
                 existingSitemapURLStringList = existingSitemapList.urlset.url.map(ele => ele.loc._text);
             }
-            console.log(existingSitemapURLStringList);
-
+           
             untrackedUrlsList.forEach(ele => {
                 if (existingSitemapURLStringList.indexOf(ele) == -1) {
                     existingSitemapList.urlset.url.push({

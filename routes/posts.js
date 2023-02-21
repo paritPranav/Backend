@@ -16,7 +16,7 @@ const { findOneAndUpdate } = require("../models/posts");
 const {uploadFile}=require("./s3")
 
 //Sitemap updation
-const {sitemapupdate}=require("./routes/sitemap_update")
+const {sitemapupdate}=require("./sitemap_update")
 
 
 const app=express();
