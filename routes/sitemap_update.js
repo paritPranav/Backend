@@ -45,7 +45,7 @@ const filterUniqueURLs = () => {
                             _text: ele,
                         },
                         changefreq: {
-                            _text: 'monthly'
+                            _text: 'daily'
                         },
                         priority: {
                             _text: 0.8
