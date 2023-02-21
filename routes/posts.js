@@ -15,6 +15,10 @@ const { findOneAndUpdate } = require("../models/posts");
 
 const {uploadFile}=require("./s3")
 
+//Sitemap updation
+const {sitemapupdate}=require("./routes/sitemap_update")
+
+
 const app=express();
 let date= new Date();
 app.use(express.static("public"))
@@ -187,6 +191,7 @@ router.post('/createPost',upload.single('image'),verify,async(req,res)=>{
             
             try{
                 const savedPost= await newPost.save();
+                const {sitemapupdate}=require("./routes/sitemap_update")
 
                res.send("Success")
                res.status(200)
