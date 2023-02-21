@@ -136,7 +136,7 @@ router.get('/post',async(req,res)=>{
   
     try{    
         var post = await Post.findById(req.query.postid);
-    
+        
         res.send(post);
 
     }catch(err){
@@ -191,7 +191,8 @@ router.post('/createPost',upload.single('image'),verify,async(req,res)=>{
             
             try{
                 const savedPost= await newPost.save();
-                const {sitemapupdate}=require("./routes/sitemap_update")
+               //updating Sitemap
+                sitemapupdate();
 
                res.send("Success")
                res.status(200)
