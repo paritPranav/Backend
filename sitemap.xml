@@ -6,6 +6,24 @@
     <url>
         <loc>https://spnews.live/categoryPage/Crime</loc>
     </url>
+     <url>
+        <loc>https://spnews.live/categoryPage/Agriculture</loc>
+    </url>
+     <url>
+        <loc>https://spnews.live/categoryPage/Others</loc>
+    </url>
+     <url>
+        <loc>https://spnews.live/categoryPage/Sports</loc>
+    </url>
+     <url>
+        <loc>https://spnews.live/categoryPage/Entertainment</loc>
+    </url>
+     <url>
+        <loc>https://spnews.live/categoryPage/Politics</loc>
+    </url>
+        <url>
+        <loc>https://spnews.live/categoryPage/Education</loc>
+    </url>
     <url>
         <loc>https://spnews.live/fullpost/63e925e4e3c561b4d3ba0697</loc>
         <changefreq>monthly</changefreq>
