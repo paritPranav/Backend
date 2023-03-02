@@ -31,7 +31,8 @@ const postsSchema=new mongoose.Schema({
         default:0
     },
     Post_Date:{
-        type:Date
+        type:Date,
+        default:Date.now
     },
     Post_Video_Link:{
         type:String

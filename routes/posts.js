@@ -20,7 +20,7 @@ const {sitemapupdate}=require("./sitemap_update")
 
 
 const app=express();
-let date= new Date();
+
 app.use(express.static("public"))
 
     
@@ -184,7 +184,6 @@ router.post('/createPost',upload.single('image'),verify,async(req,res)=>{
                 Post_Place:req.body.place,
                 Post_Image:result.Location,
                 Post_Category:req.body.category,
-                Post_Date:date,
                 Post_Video_Link:req.body.link,
                 Post_Keywords:req.body.keywords
             })
