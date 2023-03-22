@@ -12,6 +12,8 @@ const unlinkFile=util.promisify(fs.unlink)
 const path = require('path');
 var cookies = require("cookie-parser");
 const { findOneAndUpdate } = require("../models/posts");
+var ObjectId = require('mongodb').ObjectID;
+
 
 const {uploadFile}=require("./s3")
 
@@ -47,11 +49,6 @@ try{
 }catch(err){
 console.log(err);
 }
-
-
-
-
-
 });
 
 router.get('/allposts',async(req,res)=>{
@@ -97,6 +94,33 @@ router.get('/fpostlength',async(req,res)=>{
         console.log(e);
     }
 })
+
+//Update deleted id 
+router.post("/updateId",verify,async(req,res)=>{
+    console.log(req.body.data)
+    try{
+        doc = await Post.findOne({_id:req.body.data.newId})
+        console.log(doc)
+    const newPost = new Post({
+        Post_Title:doc.Post_Title,
+        Post_Description:doc.Post_Description, 
+        Post_Place:doc.Post_Place,
+        Post_Image:doc.Post_Image,
+        Post_Category:doc.Post_Category,
+        Post_Video_Link:doc.Post_Video_Link,
+        Post_Keywords:doc.Post_Keywords
+    })
+   newPost._id = ObjectId(req.body.data.oldId);
+  await newPost.save();
+  await Post.deleteOne({_id: req.body.data.newId});
+    res.send("succeed").status(200);
+    }catch(err){
+        console.log(err);
+    }
+
+
+})
+
 
 // post Filtering by category
 router.get('/fpost',async(req,res)=>{
@@ -180,7 +204,7 @@ router.post('/createPost',upload.single('image'),verify,async(req,res)=>{
 
 		const newPost = new Post({
                 Post_Title:req.body.title,
-                Post_Description:req.body.desc,
+                Post_Description:req.body.desc, 
                 Post_Place:req.body.place,
                 Post_Image:result.Location,
                 Post_Category:req.body.category,

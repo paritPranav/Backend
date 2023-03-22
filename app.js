@@ -27,10 +27,12 @@ mongoose.connect(
 //import routes
 const PostRoute = require("./routes/posts");
 const UserRoute = require("./routes/user");
+const AdvertiseRoute=require("./routes/advertise");
 
 //middleware
 app.use("/posts", PostRoute);
 app.use("/user", UserRoute);
+app.use("/advertise",AdvertiseRoute);
 app.set('view engine', 'ejs');
 app.use(express.static("public"))
 
@@ -48,3 +50,4 @@ res.sendFile(__dirname+"/sitemap.xml")
 app.listen(3000, () => {
 	
 });
+
