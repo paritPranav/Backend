@@ -111,6 +111,7 @@ router.post("/updateId",verify,async(req,res)=>{
         Post_Keywords:doc.Post_Keywords
     })
    newPost._id = ObjectId(req.body.data.oldId);
+   
   await newPost.save();
   await Post.deleteOne({_id: req.body.data.newId});
     res.send("succeed").status(200);
