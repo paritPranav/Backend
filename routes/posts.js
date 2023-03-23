@@ -97,9 +97,9 @@ router.get('/fpostlength',async(req,res)=>{
 
 //Update deleted id 
 router.post("/updateId",verify,async(req,res)=>{
-    console.log(req.body.data)
+    // console.log(req.body)
     try{
-        doc = await Post.findOne({_id:req.body.data.newId})
+        doc = await Post.findOne({_id:req.body.newId})
         console.log(doc)
     const newPost = new Post({
         Post_Title:doc.Post_Title,
@@ -110,10 +110,10 @@ router.post("/updateId",verify,async(req,res)=>{
         Post_Video_Link:doc.Post_Video_Link,
         Post_Keywords:doc.Post_Keywords
     })
-   newPost._id = ObjectId(req.body.data.oldId);
-   
+   newPost._id = ObjectId(req.body.oldId);
+
   await newPost.save();
-  await Post.deleteOne({_id: req.body.data.newId});
+  await Post.deleteOne({_id: req.body.newId});
     res.send("succeed").status(200);
     }catch(err){
         console.log(err);
@@ -233,6 +233,7 @@ router.post('/createPost',upload.single('image'),verify,async(req,res)=>{
 //Delete Specific Post Router
 
 router.delete('/delete',verify,async(req,res)=>{
+    console.log("Deleteing.....")
 
     try{
 
