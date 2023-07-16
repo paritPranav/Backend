@@ -1,6 +1,8 @@
 const bodyParser = require("body-parser");
 const express = require("express");
 const Advertise=require('../models/advertisements');
+const AdvertiseBills=require('../models/advertiseBills');
+
 const jwt = require('jsonwebtoken');
 const verify=require('./jwtverify');
 const multer =require('multer');
@@ -12,7 +14,8 @@ const unlinkFile=util.promisify(fs.unlink)
 const path = require('path');
 var cookies = require("cookie-parser");
 
-const {uploadFile}=require("./s3")
+const {uploadFile}=require("./s3");
+const advertiseBills = require("../models/advertiseBills");
 
 
 const app=express();
@@ -41,7 +44,51 @@ try{
 }
 
 })
+router.get("/bills",async(req,res)=>{
+  
+    try{
+        const allBills=await AdvertiseBills.find();
+        res.send(allBills);
+    }catch(err){
+        console.log(err);
+    }
+})
 
+router.post("/addBill",verify, async(req,res)=>{
+    console.log(req.body);
+    const newbill=new advertiseBills({
+        Provider_Name:req.body.Pname,
+        adAmount:req.body.amount,
+        paymentStaus:req.body.status,
+        adDuration:req.body.duration
+    });
+    try{
+        
+        await newbill.save();
+        res.send("done")
+        res.status(200);
+    }catch(err){
+        console.log(err);
+    }
+
+})
+
+router.patch("/updatepaymentstatus",async(req,res)=>{
+let id=req.body.id;
+    try{
+        const update=await advertiseBills.updateOne(
+            {_id:id},
+            {
+                $set:{
+                    paymentStaus:req.body.status
+                }
+            }
+        )
+        res.send("Done");
+    }catch(err){
+        console.log(err);
+    }
+})
 
 router.post("/addadvertise",upload.single('image'),verify, async(req,res)=>{
     const file=req.file;
@@ -62,6 +109,7 @@ router.post("/addadvertise",upload.single('image'),verify, async(req,res)=>{
     }
 
 })
+
 
 router.delete("/deleteAdvertise",verify,async(req,res)=>{
     try{

@@ -26,7 +26,7 @@ mongoose.connect(
 
 //import routes
 const PostRoute = require("./routes/posts");
-const UserRoute = require("./routes/user");
+const UserRoute = require("./routes/user");	
 const AdvertiseRoute=require("./routes/advertise");
 
 //middleware
