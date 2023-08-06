@@ -41,10 +41,10 @@ const upload=multer({dest:'uploads/'});
 router.get('/',async(req,res)=>{
    
     let pageno=req.query.pageno-1;
-    let skippage=pageno*10;
+    let skippage=pageno*16;
 try{
 
-    const allPosts= await Post.find().sort({Post_Date:-1}).skip(skippage).limit(10);
+    const allPosts= await Post.find().sort({Post_Date:-1}).skip(skippage).limit(16);
      res.send(allPosts  )
 }catch(err){
 console.log(err);
